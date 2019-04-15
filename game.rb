@@ -1,13 +1,4 @@
 class Game
-  def initialize
-    puts 'Как тебя зовут: '
-    @name_player = gets.chomp.capitalize!
-    puts "Привет #{@name_player}, давай начнем игру!"
-    start
-  end
-
-  private
-
   def start
     @bank_player = 100
     @bank_computer = 100
@@ -18,7 +9,6 @@ class Game
     bet
     deal_card
     info
-    menu
     continue
   end
 
@@ -39,25 +29,6 @@ class Game
     @player.cards.count == 2 ? @computer.show_hidden : @computer.show
     puts "У #{@name_player}: #{@bank_player} $ "
     @player.show
-  end
-
-  def menu
-    puts '1. Пропустить'
-    puts '2. Добавить карту'
-    puts '3. Открыть карты'
-    puts '0. Выйти'
-
-    choice = gets.chomp
-    case choice
-    when '1'
-      computer_go
-    when '2'
-      player_go
-    when '3'
-      who_win?
-    when '4'
-      exit
-    end
   end
 
   def player_go
