@@ -1,14 +1,21 @@
 class Game
-  def start
+  attr_reader :bank_player, :bank_computer, :player, :computer, :all_bank
+
+  def initialize
     @bank_player = 100
     @bank_computer = 100
     @desk = Desk.new
     @player = Hand.new
     @computer = Hand.new
+    @interface = Interface.new
     @all_bank = 0
+  end
+
+  def run
+    @interface.info
+    @interface.menu
     bet
     deal_card
-    info
     continue
   end
 
@@ -23,14 +30,6 @@ class Game
     2.times { @desk.add_card(@computer) }
   end
 
-  def info
-    system 'clear'
-    puts "У Диллера: #{@bank_computer} $"
-    @player.cards.count == 2 ? @computer.show_hidden : @computer.show
-    puts "У #{@name_player}: #{@bank_player} $ "
-    @player.show
-  end
-
   def player_go
     @desk.add_card(@player)
     @player.cards.count == 3 ? who_win? : computer_go
@@ -42,9 +41,8 @@ class Game
   end
 
   def who_win?
-    info
-    puts "Cчет: #{@player.total_value}"
-    puts "Cчет Диллера: #{@computer.total_value}"
+    @interface.info
+    @interface.bill
     draw?
     player_win?
     computer_win?
@@ -77,16 +75,16 @@ class Game
   def draw_bank
     @player_bank += @game_bank / 2
     @dealer_bank += @game_bank / 2
-    puts 'Ничья!'
+    @interface.draw
   end
 
   def player_bank_win
     @player_bank += @game_bank
-    puts "#{@name_player} победил"
+    @interface.player_win
   end
 
   def computer_bank_win
     @computer_bank += @game_bank
-    puts 'Диллер победил'
+    @interface.computer_win
   end
 end
