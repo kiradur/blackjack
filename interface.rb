@@ -15,14 +15,19 @@ class Interface
 
   def run
     @game.bank if @game.bank_player <= 0 || @game.bank_computer <= 0
+    @game.player.clean
+    @game.computer.clean
+    @game.desk.shuffle
     @game.all_bank = 0
-    info
-    menu
     @game.bet
     @game.deal_card
+    menu
   end
 
   def menu
+    system 'clear'
+    info
+    show_card_game
     puts '1. Пропустить'
     puts '2. Добавить карту'
     puts '3. Открыть карты'
@@ -31,9 +36,11 @@ class Interface
     choice = gets.chomp
     case choice
     when '1'
-      @game.player.cards.count == 3 ? who_win? : @game.computer_go
+      @game.computer_go
+      @game.player.cards.count == 3 ? who_win? : menu
     when '2'
-      @game.computer.cards.count == 3 ? who_win? : @game.player_go
+      @game.player_go
+      @game.computer.cards.count == 3 ? who_win? : menu
     when '3'
       who_win?
     when '4'
@@ -43,6 +50,7 @@ class Interface
 
   def who_win?
     info
+    show_card
     bill
     if @game.draw?
       draw
@@ -57,14 +65,22 @@ class Interface
   def info
     system 'clear'
     puts "У Диллера: #{@game.bank_computer} $"
-    @game.computer.cards.count == 2 ? @game.computer.show_hidden : @game.computer.show
     puts "У #{@name_player}: #{@game.bank_player} $ "
+  end
+
+  def show_card_game
+     @game.computer.show_hidden
+    @game.player.show
+  end
+
+  def show_card
+    @game.computer.show
     @game.player.show
   end
 
   def bill
-    puts "Cчет: #{@game.player.total_value}"
-    puts "Cчет Диллера: #{@game.computer.total_value}"
+    puts "Cчет: #{@game.player.value}"
+    puts "Cчет Диллера: #{@game.computer.value}"
   end
 
   def player_win

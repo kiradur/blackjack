@@ -9,10 +9,14 @@ class Hand
     total = 0
     ace = 0
     @cards.each do |card|
-      ace += 1 if card.value == 11
-      total += card.value
+      ace += 1 if card.total_value == 11
+      total += card.total_value
     end
     ace >= 1 && total > 21 ? total - 10 : total
+  end
+
+  def clean
+    @cards = []
   end
 
   def show

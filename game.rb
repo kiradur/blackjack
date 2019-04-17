@@ -1,5 +1,5 @@
 class Game
-  attr_reader :bank_player, :bank_computer, :player, :computer, :all_bank
+  attr_reader :bank_player, :bank_computer, :player, :computer, :all_bank, :desk
   attr_writer :all_bank
 
   def initialize(player, computer)
@@ -59,15 +59,15 @@ class Game
   end
 
   def draw_bank
-    @bank_player += @game_bank / 2
-    @bank_computer += @game_bank / 2
+    @bank_player += @all_bank / 2
+    @bank_computer += @all_bank / 2
   end
 
   def player_bank_win
-    @bank_player += @game_bank
+    @bank_player += @all_bank
   end
 
   def computer_bank_win
-    @bank_computer += @game_bank
+    @bank_computer += @all_bank
   end
 end

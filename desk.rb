@@ -4,7 +4,7 @@ class Desk
   IMPORT = %w[♣ ♥ ♠ ♦].freeze
   FACES = [2, 3, 4, 5, 6, 7, 8, 9, 10, 'J', 'Q', 'K', 'A'].freeze
 
-  def initialise
+  def initialize
     @cards = []
     IMPORT.each do |import|
       FACES.each do |face|
@@ -14,7 +14,7 @@ class Desk
   end
 
   def add_card(hand)
-    hand.cards << @cards.slice!(0)
+    hand.cards << @cards.slice!(1)
   end
 
   def shuffle
