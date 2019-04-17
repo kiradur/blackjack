@@ -21,7 +21,6 @@ class Interface
     menu
     @game.bet
     @game.deal_card
-    continue
   end
 
   def menu
