@@ -15,7 +15,6 @@ class Interface
 
   def run
     @game.bank if @game.bank_player <= 0 || @game.bank_computer <= 0
-    @desk = Desk.new
     @game.all_bank = 0
     info
     menu
@@ -58,7 +57,7 @@ class Interface
   def info
     system 'clear'
     puts "У Диллера: #{@game.bank_computer} $"
-    @game.player.cards.count == 2 ? @game.computer.show_hidden : @game.computer.show
+    @game.computer.cards.count == 2 ? @game.computer.show_hidden : @game.computer.show
     puts "У #{@name_player}: #{@game.bank_player} $ "
     @game.player.show
   end

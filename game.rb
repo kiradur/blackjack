@@ -1,9 +1,13 @@
 class Game
   attr_reader :bank_player, :bank_computer, :player, :computer, :all_bank
+  attr_writer :all_bank
 
   def initialize(player, computer)
     @player = player
     @computer = computer
+    @bank_player = 0
+    @bank_computer = 0
+    @desk = Desk.new
   end
 
   def bank 
@@ -27,29 +31,29 @@ class Game
   end
 
   def computer_go
-    @desk.add_card(@computer) if @computer.total_value < 17
+    @desk.add_card(@computer) if @computer.value < 17
   end
 
   def draw?
-    if @computer.total_value == @player.total_value
+    if @computer.value == @player.value
       draw_bank
-    elsif @computer.total_value > 21 && @player.total_value > 21
+    elsif @computer.value > 21 && @player.value > 21
       draw_bank
     end
   end
 
   def player_win?
-    if @player.total_value <= 21 && @computer.total_value < @player.total_value
+    if @player.value <= 21 && @computer.value < @player.value
       player_bank_win
-    elsif @computer.total_value > 21 && !draw?
+    elsif @computer.value > 21 && !draw?
       player_bank_win
     end
   end
 
   def computer_win?
-    if @computer.total_value <= 21 && @computer.total_value > @player.total_value
+    if @computer.value <= 21 && @computer.value > @player.value
       computer_bank_win
-    elsif @player.total_value > 21 && !draw?
+    elsif @player.value > 21 && !draw?
       computer_bank_win
     end
   end
