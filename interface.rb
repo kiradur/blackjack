@@ -97,6 +97,10 @@ class Interface
 
   def continue
     puts "Для продолжения игры нажмите 'Y'"
-    run if gets.chomp == 'Y'
+    if gets.chomp == 'Y'
+      run 
+    else
+      exit
+    and
   end
 end
