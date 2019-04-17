@@ -1,26 +1,18 @@
 class Game
   attr_reader :bank_player, :bank_computer, :player, :computer, :all_bank
 
-  def initialize
-    @bank_player = 100
-    @bank_computer = 100
-    @desk = Desk.new
-    @player = Hand.new
-    @computer = Hand.new
-    @interface = Interface.new
-    @all_bank = 0
+  def initialize(player, computer)
+    @player = player
+    @computer = computer
   end
 
-  def run
-    @interface.info
-    @interface.menu
-    bet
-    deal_card
-    continue
+  def bank 
+    @bank_player = 100
+    @bank_computer = 100
   end
 
   def bet
-    @bank_player -= 10
+    @bank_player  -= 10
     @bank_computer -= 10
     @all_bank += 20
   end
@@ -32,20 +24,10 @@ class Game
 
   def player_go
     @desk.add_card(@player)
-    @player.cards.count == 3 ? who_win? : computer_go
   end
 
   def computer_go
     @desk.add_card(@computer) if @computer.total_value < 17
-    @computer.cards.count == 3 ? who_win? : player_go
-  end
-
-  def who_win?
-    @interface.info
-    @interface.bill
-    draw?
-    player_win?
-    computer_win?
   end
 
   def draw?
@@ -73,18 +55,15 @@ class Game
   end
 
   def draw_bank
-    @player_bank += @game_bank / 2
-    @dealer_bank += @game_bank / 2
-    @interface.draw
+    @bank_player += @game_bank / 2
+    @bank_computer += @game_bank / 2
   end
 
   def player_bank_win
-    @player_bank += @game_bank
-    @interface.player_win
+    @bank_player += @game_bank
   end
 
   def computer_bank_win
-    @computer_bank += @game_bank
-    @interface.computer_win
+    @bank_computer += @game_bank
   end
 end

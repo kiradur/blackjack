@@ -1,14 +1,27 @@
 class Interface
   attr_accessor :cards
 
-  def initialize
-    @game = Game.new
+  def initialize(game)
+    @game = game
+    start
+    run
   end
 
   def start
     puts 'Как тебя зовут: '
     @name_player = gets.chomp.capitalize!
     puts "Привет #{@name_player}, давай начнем игру!"
+  end
+
+  def run
+    @game.bank if @game.bank_player <= 0 || @game.bank_computer <= 0
+    @desk = Desk.new
+    @game.all_bank = 0
+    info
+    menu
+    @game.bet
+    @game.deal_card
+    continue
   end
 
   def menu
@@ -20,14 +33,27 @@ class Interface
     choice = gets.chomp
     case choice
     when '1'
-      @game.computer_go
+      @game.player.cards.count == 3 ? who_win? : @game.computer_go
     when '2'
-      @game.player_go
+      @game.computer.cards.count == 3 ? who_win? : @game.player_go
     when '3'
-      @game.who_win?
+      who_win?
     when '4'
       exit
     end
+  end
+
+  def who_win?
+    info
+    bill
+    if @game.draw?
+      draw
+    elsif @game.player_win?
+      player_win
+    elsif @game.computer_win?
+      computer_win
+    end
+    continue
   end
 
   def info
@@ -53,5 +79,10 @@ class Interface
 
   def draw
     puts 'Ничья!'
+  end
+
+  def continue
+    puts "Для продолжения игры нажмите 'Y'"
+    run if gets.chomp == 'Y'
   end
 end
