@@ -69,7 +69,7 @@ class Interface
   end
 
   def show_card_game
-     @game.computer.show_hidden
+    @game.computer.show_hidden
     @game.player.show
   end
 
@@ -101,6 +101,6 @@ class Interface
       run 
     else
       exit
-    and
+    end
   end
 end
