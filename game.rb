@@ -10,9 +10,21 @@ class Game
     @desk = Desk.new
   end
 
+  def round
+    bank 
+    @player.clean
+    @computer.clean
+    @desk.shuffle
+    @all_bank = 0
+    bet
+    deal_card
+  end
+
   def bank 
-    @bank_player = 100
-    @bank_computer = 100
+    if @bank_player <= 0 || @bank_computer <= 0
+      @bank_player = 100
+      @bank_computer = 100
+    end
   end
 
   def bet
@@ -32,6 +44,7 @@ class Game
 
   def computer_go
     @desk.add_card(@computer) if @computer.value < 17
+    player_go
   end
 
   def draw?
@@ -69,5 +82,9 @@ class Game
 
   def computer_bank_win
     @bank_computer += @all_bank
+  end
+
+  def exit
+    exit
   end
 end

@@ -14,13 +14,7 @@ class Interface
   end
 
   def run
-    @game.bank if @game.bank_player <= 0 || @game.bank_computer <= 0
-    @game.player.clean
-    @game.computer.clean
-    @game.desk.shuffle
-    @game.all_bank = 0
-    @game.bet
-    @game.deal_card
+    @game.round
     menu
   end
 
@@ -44,7 +38,7 @@ class Interface
     when '3'
       who_win?
     when '4'
-      exit
+      @game.exit
     end
   end
 
