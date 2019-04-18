@@ -84,6 +84,15 @@ class Game
     @bank_computer += @all_bank
   end
 
+  def count_card_player?
+    @player.cards.count == 3 
+  end
+
+  def count_card_computer?
+    @computer.cards.count == 3
+  end
+
+
   def exit
     exit
   end

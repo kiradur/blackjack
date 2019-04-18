@@ -31,10 +31,10 @@ class Interface
     case choice
     when '1'
       @game.computer_go
-      @game.player.cards.count == 3 ? who_win? : menu
+      @game.count_card_player? ? who_win? : menu
     when '2'
       @game.player_go
-      @game.computer.cards.count == 3 ? who_win? : menu
+      @game.count_card_computer? ? who_win? : menu
     when '3'
       who_win?
     when '4'
